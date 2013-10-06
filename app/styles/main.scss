@@ -67,3 +67,14 @@ body {
 .marketing p + h4 {
     margin-top: 28px;
 }
+
+/* Overwrite td background color */
+.table tbody tr > td {
+
+  $sections: info #39B3D7, warning #ED9C28, danger #D9534F;
+  @each $section_name in $sections { 
+    &.#{nth($section_name, 1)} {
+      background-color: tint(nth($section_name, 2), 80%);
+    }
+  }
+}

@@ -18,32 +18,53 @@
     <!-- endbuild -->
   </head>
   <body>
+
     <!--[if lt IE 10]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     
     <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title">Modal title</h4>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-  </div><!-- /.modal -->
-
-   <!-- Button trigger modal -->
-  <a data-toggle="modal" href="#myModal" class="btn btn-primary btn-lg">Launch demo modal</a>
-
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <form action="#" class="form-horizontal" role="form">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Edit Task</h4>
+            </div>
+            <div class="modal-body">
+              <div class="form-group"></div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">New task name</label>
+                <div class="col-lg-10">
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-lg-2 control-label">Priority</label>
+                <div class="col-lg-10"> 
+                  <div class="btn-group" data-toggle="buttons">
+                    <label class="btn btn-info">
+                      <input type="radio" name="options" /> Normal
+                    </label>
+                    <label class="btn btn-warning">
+                      <input type="radio" name="options" /> Medium
+                    </label>
+                    <label class="btn btn-danger">
+                      <input type="radio" name="options" /> High
+                    </label>
+                  </div>
+                </div>
+              </div> 
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <input type="submit" class="btn btn-primary" value="Save changes">
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+      </form>
+    </div><!-- /.modal -->
 
     <div class="bs-header">
       <div class="header">
@@ -101,19 +122,27 @@
       <table class="table table-striped">
         
         <tr>
-          <td class="col-lg-1 text-center"><span class="glyphicon glyphicon-record"></span></td>
-          <td>
+          <td class="col-lg-1 text-center warning"><span class="glyphicon glyphicon-record"></span></td>
+          <td class="warning">
             Coisa pra fazer
           </td>
-          <td class="col-lg-1 text-center"><a href="#" class="glyphicon glyphicon-edit"></a></td>
+          <td class="col-lg-1 text-center warning"><a data-toggle="modal" href="#editModal" class="glyphicon glyphicon-edit"></a></td>
         </tr>
 
         <tr>
-          <td class="col-lg-1 text-center"><span class="glyphicon glyphicon-record"></span></td>
-          <td>
+          <td class="col-lg-1 text-center info"><span class="glyphicon glyphicon-record"></span></td>
+          <td class="info">
             Coisa pra fazer
           </td>
-          <td class="col-lg-1 text-center"><a href="#" class="glyphicon glyphicon-edit"></a></td>
+          <td class="col-lg-1 text-center info"><a data-toggle="modal" href="#editModal" class="glyphicon glyphicon-edit"></a></td>
+        </tr>
+
+        <tr>
+          <td class="col-lg-1 text-center danger"><span class="glyphicon glyphicon-record"></span></td>
+          <td class="danger">
+            Coisa pra fazer
+          </td>
+          <td class="col-lg-1 text-center danger"><a data-toggle="modal" href="#editModal" class="glyphicon glyphicon-edit"></a></td>
         </tr>
 
       </table>
