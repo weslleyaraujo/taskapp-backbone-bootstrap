@@ -147,6 +147,17 @@
 
       </table>
     </div>
+      
+    <script type="text/template" data-template="task">
+      <td class="col-lg-1 text-center {{ priority }}">
+      <span class="glyphicon glyphicon-record"></span></td>
+      <td class="{{ priority }}">
+        {{ title }}
+      </td>
+      <td class="col-lg-1 text-center {{ priority }}">
+        <a data-toggle="modal" href="#editModal" class="glyphicon glyphicon-edit"></a>
+      </td>
+    </script>
 
     <div class="bs-footer">
       <div class="footer">

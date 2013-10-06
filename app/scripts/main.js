@@ -49,13 +49,23 @@ require.config({
     },
     bootstrapTransition: {
       deps: ['jquery']
+    },
+    backbone: {
+      deps: ['underscore']
+    },
+    app: {
+      deps: ['backbone']
     }
   }
 });
 
-require(['app', 'jquery', 'underscore', 'backbone', 'bootstrapButton', 'bootstrapModal'], function (app, $) {
+require(['app','jquery', 'bootstrapButton', 'bootstrapModal'], function (app, $) {
   'use strict';
+  
   // use app here
-  console.log(app);
-  console.log('Running jQuery %s', $().jquery);
+  window.RabbitTask = app;
+
+  var model = new RabbitTask.Models.Task();
+  var view = new RabbitTask.Views.Task({model: model});
+  console.log(view.el);
 });
