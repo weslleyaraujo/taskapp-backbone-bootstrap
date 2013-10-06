@@ -65,7 +65,19 @@ require(['app','jquery', 'bootstrapButton', 'bootstrapModal'], function (app, $)
   // use app here
   window.RabbitTask = app;
 
-  var model = new RabbitTask.Models.Task();
-  var view = new RabbitTask.Views.Task({model: model});
-  console.log(view.el);
+  window.taskCollection = new RabbitTask.Collections.Tasks([
+    {
+      title: 'get to the store',
+      priority: 0
+    },
+    {
+      title: 'go to work',
+      priority: 2
+    }
+  ]);
+
+  window.tasks = new RabbitTask.Views.Tasks({
+    collection: taskCollection
+  })
+
 });
