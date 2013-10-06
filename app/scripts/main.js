@@ -59,7 +59,7 @@ require.config({
   }
 });
 
-require(['app','jquery', 'bootstrapButton', 'bootstrapModal'], function (app, $) {
+require(['app','jquery', 'bootstrapButton', 'bootstrapModal', 'bootstrapAlert'], function (app, $) {
   'use strict';
   
   // use app here
@@ -79,5 +79,7 @@ require(['app','jquery', 'bootstrapButton', 'bootstrapModal'], function (app, $)
   window.tasks = new RabbitTask.Views.Tasks({
     collection: taskCollection
   })
+
+  window.addTask = new RabbitTask.Views.addTask;
 
 });

@@ -18,6 +18,30 @@
     <!-- endbuild -->
   </head>
   <body>
+    
+    <!-- alertModal -->
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Task Error</h4>
+          </div>
+          <div class="modal-body">
+
+            <div class="alert alert-block alert-danger fade in">
+              <p>The task name cant be null.</p>
+            </div>
+
+          </div> 
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+          </div>
+        </div><!-- /.modal-content -->
+    </div>
+
+
 
     <!--[if lt IE 10]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -64,7 +88,8 @@
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
       </form>
-    </div><!-- /.modal -->
+    </div>
+    <!-- /.modal -->
 
     <div class="bs-header">
       <div class="header">
@@ -79,7 +104,7 @@
     
     <div class="container">
       
-      <form action="#" class="form-horizontal" role="form">
+      <form action="#" class="form-horizontal" role="form" id="addTask" >
         
         <div class="form-group"></div>
         
@@ -95,13 +120,13 @@
           <div class="col-lg-10"> 
             <div class="btn-group" data-toggle="buttons">
               <label class="btn btn-info">
-                <input type="radio" name="options" /> Normal
+                <input type="radio" name="priority" value="0" /> Normal
               </label>
               <label class="btn btn-warning">
-                <input type="radio" name="options" /> Medium
+                <input type="radio" name="priority" value="1" /> Medium
               </label>
               <label class="btn btn-danger">
-                <input type="radio" name="options" /> High
+                <input type="radio" name="priority" value="2" /> High
               </label>
             </div>
           </div>

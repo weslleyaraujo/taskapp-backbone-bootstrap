@@ -19,16 +19,26 @@ define([], function () {
 		return _.template($(selector).html());
 	};
 
+	/* Error helper */
+
 	/* Task unit model */
 	RabbitTask.Models.Task = Backbone.Model.extend({
-		defaults: {
-			priority: 0,
-			title: 'empty task :)'
+		initialize: function() {
+			this.validate(this.attributes);
+			this.setPriorityName();
 		},
 
-		initialize:function (){
-			this.validate();
-			this.setPriorityName();
+		validate:function (attrs) {
+
+			// is name valid
+			if (_.isEmpty(attrs.title)) {
+				return 'The task name cant be null';
+			}
+
+			// is priority valid
+			if (!_.isNumber(parseInt(attrs.priority, 0))) {
+				return 'Select a priority value';
+			}
 		},
 
 		setPriorityName: function () {
@@ -46,10 +56,7 @@ define([], function () {
 				break;
 			}
 
-		},
-
-		validate:function (attrs) {
-			// console.log(attrs);
+			return this;
 		}
 	});
 
@@ -97,6 +104,37 @@ define([], function () {
 				model: model
 			});
 			this.$el.append(taskView.el);
+		}
+	});
+
+	/* Add task view */
+	RabbitTask.Views.addTask = Backbone.View.extend({
+		el: '#addTask',
+
+		initialize: function () {
+			this.$text = this.$el.find('input[type="text"]');
+		},
+
+		getPriority: function () {
+			this.$priority = this.$el.find('input[name="priority"]:checked');
+		},
+
+		events: {
+			'submit': 'onSubmit'
+		},
+
+		onSubmit: function(e) {
+			e.preventDefault();
+			this.getPriority();
+
+			var newTask = new RabbitTask.Models.Task({
+				title: this.$text.val(),
+				priority: this.$priority.val()
+			}, {
+				validate: true
+			});
+
+			console.log(newTask);
 		}
 	});
 
