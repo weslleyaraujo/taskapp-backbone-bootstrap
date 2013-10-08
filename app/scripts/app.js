@@ -1,7 +1,6 @@
 /*global define, Backbone, _ */
 define([], function () {
 	'use strict';
-	
 	// setting underscore delimiters
 	_.templateSettings = {
 		interpolate: /\{\{(.+?)\}\}/g
@@ -20,39 +19,40 @@ define([], function () {
 	};
 
 	/* Error helper */
+	RabbitTask.Helpers.modalError = function (model) {
+		this.$el = $('#alertModal');
+		this.$el.find('.message-placeholder').html('<p>'+ model.validationError +'</p>');
+		this.$el.modal('show');
+	};
 
 	/* Task unit model */
 	RabbitTask.Models.Task = Backbone.Model.extend({
 		initialize: function() {
-			this.validate(this.attributes);
 			this.setPriorityName();
 		},
 
 		validate:function (attrs) {
-
-			// is name valid
 			if (_.isEmpty(attrs.title)) {
 				return 'The task name cant be null';
 			}
 
-			// is priority valid
-			if (!_.isNumber(parseInt(attrs.priority, 0))) {
+			if (_.isEmpty(attrs.priority) || _.isNaN(attrs.priority)) {
 				return 'Select a priority value';
 			}
 		},
 
 		setPriorityName: function () {
 			switch(this.get('priority')) {
-			case 0 :
-				this.set('priority', 'info');
-				break;
-
 			case 1 :
-				this.set('priority', 'warning');
+				this.set('priority_name', 'info');
 				break;
 
 			case 2 :
-				this.set('priority', 'danger');
+				this.set('priority_name', 'warning');
+				break;
+
+			case 3 :
+				this.set('priority_name', 'danger');
 				break;
 			}
 
@@ -66,6 +66,14 @@ define([], function () {
 
 		comparator: function (task) {
 			return task.get('priority');
+		},
+
+		initialize: function () {
+			this.on('add', this.add);
+		},
+
+		add: function () {
+			console.log(this);
 		}
 	});
 
@@ -128,13 +136,15 @@ define([], function () {
 			this.getPriority();
 
 			var newTask = new RabbitTask.Models.Task({
-				title: this.$text.val(),
-				priority: this.$priority.val()
-			}, {
-				validate: true
+				'title': this.$text.val(),
+				'priority': this.$priority.val()
 			});
+			if (!newTask.isValid()) {
+				RabbitTask.Helpers.modalError(newTask);
+				return;
+			}
 
-			console.log(newTask);
+			this.collection.add(newTask);
 		}
 	});
 

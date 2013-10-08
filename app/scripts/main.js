@@ -68,7 +68,7 @@ require(['app','jquery', 'bootstrapButton', 'bootstrapModal', 'bootstrapAlert'],
   window.taskCollection = new RabbitTask.Collections.Tasks([
     {
       title: 'get to the store',
-      priority: 0
+      priority: 1
     },
     {
       title: 'go to work',
@@ -80,6 +80,8 @@ require(['app','jquery', 'bootstrapButton', 'bootstrapModal', 'bootstrapAlert'],
     collection: taskCollection
   })
 
-  window.addTask = new RabbitTask.Views.addTask;
+  window.addTask = new RabbitTask.Views.addTask({
+    collection: window.taskCollection
+  });
 
 });
