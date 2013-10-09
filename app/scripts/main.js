@@ -83,4 +83,8 @@ require(['app','jquery', 'bootstrapButton', 'bootstrapModal', 'bootstrapAlert'],
     collection: taskCollection
   });
 
+  window.editTask = new RabbitTask.Views.EditTask({
+    collection: taskCollection
+  });
+
 });

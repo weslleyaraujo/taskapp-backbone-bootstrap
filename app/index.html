@@ -50,6 +50,7 @@
 
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <form action="#" class="form-horizontal" role="form">
+        <input type="hidden" name="cid" />
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -61,7 +62,7 @@
               <div class="form-group">
                 <label class="col-lg-2 control-label">New task name</label>
                 <div class="col-lg-10">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" name="title"/>
                 </div>
               </div>
               <div class="form-group">
@@ -69,13 +70,13 @@
                 <div class="col-lg-10">
                   <div class="btn-group" data-toggle="buttons">
                     <label class="btn btn-info">
-                      <input type="radio" name="options" /> Normal
+                      <input type="radio" name="priority" value="1" /> Normal
                     </label>
                     <label class="btn btn-warning">
-                      <input type="radio" name="options" /> Medium
+                      <input type="radio" name="priority" value="2" /> Medium
                     </label>
                     <label class="btn btn-danger">
-                      <input type="radio" name="options" /> High
+                      <input type="radio" name="priority" value="3" /> High
                     </label>
                   </div>
                 </div>

@@ -25,10 +25,12 @@ define([], function () {
 		this.$el.modal('show');
 	};
 
+
 	/* Task unit model */
 	RabbitTask.Models.Task = Backbone.Model.extend({
 		initialize: function() {
 			this.setPriorityName();
+			this.on('change', this.setPriorityName);
 		},
 
 		validate:function (attrs) {
@@ -80,13 +82,34 @@ define([], function () {
 
 		template: RabbitTask.Helpers.template('[data-template="task"]'),
 
+		events: {
+			'click a[href="#editModal"]' : 'setEdition'
+		},
+
+		setEdition: function () {
+			this.setPriority(this.model.get('priority'));
+			this.$title.val(this.model.get('title'));
+			this.$cid.val(this.model.cid);
+		},
+
+		setPriority: function(priority) {
+			this.$editForm.find('input[name="priority"][value="'+ priority +'"]').trigger('click');
+		},
+
 		initialize:function () {
 			this.render();
+			this.cacheElements();
 		},
 
 		render:function () {
 			this.$el.html(this.template(this.model.toJSON()));
 			return this;
+		},
+
+		cacheElements: function () {
+			this.$editForm = $('#editModal');
+			this.$title = this.$editForm.find('input[name="title"]');
+			this.$cid = this.$editForm.find('input[name="cid"]');
 		}
 	});
 
@@ -97,9 +120,11 @@ define([], function () {
 		initialize:function() {
 			this.render();
 			this.collection.on('add', this.render, this);
+			this.collection.on('change', this.render, this);
 		},
 
 		render:function () {
+			this.collection.sort();
 			this.$el.html('');
 			this.collection.each(function (model) {
 				this.addOne(model);
@@ -143,8 +168,52 @@ define([], function () {
 				return;
 			}
 			this.collection.add(newTask);
-			console.log(this.collection);
 		}
+	});
+
+	/* Edit form view */
+	RabbitTask.Views.EditTask = Backbone.View.extend({
+		el: '.form-horizontal',
+
+		initialize: function () {
+			this.$modalBox = $('#editModal');
+		},
+
+		events: {
+			'submit' : 'onSubmit'
+		},
+
+		onSubmit: function (e) {
+			e.preventDefault();
+			this.setValues(this.$el.serializeArray());
+			this.setModel(this.cid.value);
+			this.set();
+			this.$modalBox.modal('hide');
+		},
+
+		setValues: function(arr) {
+			_.each(arr, function(obj) {
+				this.getValue(arr, obj.name);
+			}, this);
+		},
+
+		getValue: function(arr, name) {
+			this[name] = _.where(arr, {
+				name: name
+			})[0];
+		},
+
+		setModel: function (cid) {
+			this.model = this.collection.get(cid);
+		},
+
+		set: function() {
+			this.model.set({
+				title: this.title.value,
+				priority: this.priority.value
+			});
+		}
+
 	});
 
 	return RabbitTask;
