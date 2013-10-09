@@ -42,7 +42,8 @@ define([], function () {
 		},
 
 		setPriorityName: function () {
-			switch(this.get('priority')) {
+			var priority = parseInt(this.get('priority'));
+			switch(priority) {
 			case 1 :
 				this.set('priority_name', 'info');
 				break;
@@ -53,6 +54,10 @@ define([], function () {
 
 			case 3 :
 				this.set('priority_name', 'danger');
+				break;
+
+			default :
+				this.set('priority_name', 'info');
 				break;
 			}
 
@@ -65,15 +70,7 @@ define([], function () {
 		model: RabbitTask.Models.Task,
 
 		comparator: function (task) {
-			return task.get('priority');
-		},
-
-		initialize: function () {
-			this.on('add', this.add);
-		},
-
-		add: function () {
-			console.log(this);
+			return -task.get('priority');
 		}
 	});
 
@@ -99,9 +96,11 @@ define([], function () {
 
 		initialize:function() {
 			this.render();
+			this.collection.on('add', this.render, this);
 		},
 
 		render:function () {
+			this.$el.html('');
 			this.collection.each(function (model) {
 				this.addOne(model);
 			}, this);
@@ -143,8 +142,8 @@ define([], function () {
 				RabbitTask.Helpers.modalError(newTask);
 				return;
 			}
-
 			this.collection.add(newTask);
+			console.log(this.collection);
 		}
 	});
 
