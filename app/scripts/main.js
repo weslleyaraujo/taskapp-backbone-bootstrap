@@ -61,6 +61,7 @@ require.config({
 
 require(['app','jquery', 'bootstrapButton', 'bootstrapModal', 'bootstrapAlert'], function (app, $) {
   'use strict';
+
   // use app here
   window.RabbitTask = app;
 

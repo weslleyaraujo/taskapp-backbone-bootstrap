@@ -144,11 +144,10 @@ define([], function () {
 		el: '#addTask',
 
 		initialize: function () {
-			this.$text = this.$el.find('input[type="text"]');
 		},
 
 		getPriority: function () {
-			this.$priority = this.$el.find('input[name="priority"]:checked');
+			// this.$priority = this.$el.find('input[name="priority"]:checked');
 		},
 
 		events: {
@@ -157,16 +156,15 @@ define([], function () {
 
 		onSubmit: function(e) {
 			e.preventDefault();
-			this.getPriority();
 
-			var newTask = new RabbitTask.Models.Task({
-				'title': this.$text.val(),
-				'priority': this.$priority.val()
-			});
+			console.log(this.$el.serializeArray());
+			var newTask = new RabbitTask.Models.Task();
+
 			if (!newTask.isValid()) {
 				RabbitTask.Helpers.modalError(newTask);
 				return;
 			}
+
 			this.collection.add(newTask);
 		}
 	});
